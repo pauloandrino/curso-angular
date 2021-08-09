@@ -1,0 +1,14 @@
+<h1>Criar / Editar ALuno</h1>
+
+<mat-form-field appearance="fill">
+  <mat-label>Id</mat-label>
+  <input matInput [ngModel]="aluno.id" type="text" disabled>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Nome</mat-label>
+  <input matInput [ngModel]="aluno.nome" type="text" (input)="onInput()">
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Email</mat-label>
+  <input matInput [ngModel]="aluno.email" type="email">
+</mat-form-field>

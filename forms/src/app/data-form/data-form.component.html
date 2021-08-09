@@ -1,0 +1,267 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+<!--
+    <app-input-field
+      formControlName="nome"  [classeCss]="aplicaCssDeErro('nome')"
+      id="nome" label="Nome" [formGroup]="formulario" [controlName]="'nome'">
+    </app-input-field>
+    -->
+    <label for="nome" class="">Nome</label>
+
+    <input type="text" class="form-control" [ngClass]="aplicaCssDeErro('nome')"
+           formControlName="nome" id="nome" placeholder="Nome">
+
+    <app-error-msg [formGroup]="formulario" [controlName]="'nome'" label="Nome">
+    </app-error-msg>
+  </div>
+
+
+  <div class="form-group">
+    <label for="email">Email</label>
+
+    <input type="email" class="form-control" [ngClass]="aplicaCssDeErro('email')"
+           formControlName="email" id="email" placeholder="nome@email.com">
+
+
+    <app-campo-control-erro
+      [mostrarErro]="verificaValidTouched('email')"
+      msgErro="Email obrigatório.">
+    </app-campo-control-erro>
+
+    <app-campo-control-erro
+      [mostrarErro]="verificaEmailInvalido()"
+      msgErro="Email inválido.">
+    </app-campo-control-erro>
+
+    <app-campo-control-erro
+      [mostrarErro]="formulario.get('email')!.status === 'PENDING'"
+      msgErro="Validando Email.">
+    </app-campo-control-erro>
+
+    <app-campo-control-erro
+      [mostrarErro]="formulario.get('email')!.status === 'VALID'"
+      msgErro="Email válido.">
+    </app-campo-control-erro>
+
+    <app-campo-control-erro
+      [mostrarErro]="formulario.get('email')!.hasError('emailInvalido')"
+      msgErro="Email já cadastrado.">
+    </app-campo-control-erro>
+  </div>
+
+  <div class="form-group">
+    <label for="confirmarEmail">Confirmar Email</label>
+
+    <input type="confirmarEmail" class="form-control" [ngClass]="aplicaCssDeErro('confirmarEmail')"
+           formControlName="confirmarEmail" id="confirmarEmail" placeholder="nome@email.com">
+
+    <app-campo-control-erro
+      [mostrarErro]="formulario.get('confirmarEmail')!.hasError('equalsTo')"
+      msgErro="Emails não são iguais.">
+    </app-campo-control-erro>
+  </div>
+
+  <div formGroupName="endereco">
+    <div class="form-group form-row">
+      <div class="col-3">
+        <label for="cep">CEP</label>
+        <input type="text" class="form-control" id="cep"
+               [ngClass]="aplicaCssDeErro('endereco.cep')"
+               formControlName="cep">
+
+        <app-campo-control-erro
+          [mostrarErro]="verificaRequired('endereco.cep')!"
+          msgErro="CEP é obrigatório.">
+        </app-campo-control-erro>
+
+        <app-campo-control-erro
+          [mostrarErro]="formulario.get('endereco.cep')!.hasError('cepInvalido')"
+          msgErro="CEP inválido.">
+        </app-campo-control-erro>
+
+
+      </div>
+      <div class="col-3">
+        <label for="numero">Número</label>
+        <input type="text" class="form-control" id="numero"
+               [ngClass]="aplicaCssDeErro('endereco.numero')"
+               formControlName="numero">
+
+        <app-campo-control-erro
+          [mostrarErro]="verificaValidTouched('endereco.numero')"
+          msgErro="Número é obrigatório.">
+        </app-campo-control-erro>
+
+      </div>
+      <div class="col">
+        <label for="numero">Complemento</label>
+        <input type="text" class="form-control" id="complemento"
+               formControlName="complemento">
+      </div>
+    </div>
+
+    <div class="form-group">
+
+      <label for="rua" class="">Rua</label>
+
+      <input type="text" class="form-control" id="rua"
+             [ngClass]="aplicaCssDeErro('endereco.rua')"
+             formControlName="rua">
+
+      <app-campo-control-erro
+        [mostrarErro]="verificaValidTouched('endereco.rua')"
+        msgErro="Rua é obrigatório.">
+      </app-campo-control-erro>
+    </div>
+
+
+    <div class="form-group form-row">
+      <div class="col-5">
+        <label for="bairro">Bairro</label>
+        <input type="text" class="form-control" id="bairro"
+               [ngClass]="aplicaCssDeErro('endereco.bairro')"
+               formControlName="bairro">
+
+        <app-campo-control-erro
+          [mostrarErro]="verificaValidTouched('endereco.bairro')"
+          msgErro="Bairro é obrigatório.">
+        </app-campo-control-erro>
+
+      </div>
+      <div class="col-4">
+        <label for="cidade">Cidade</label>
+        <select class="form-control" id="cidade"
+                [ngClass]="aplicaCssDeErro('endereco.cidade')"
+                formControlName="cidade">
+
+          <option *ngFor="let cidade of cidades" [value]="cidade.nome">
+            {{ cidade.nome }}
+          </option>
+
+        </select>
+
+        <app-campo-control-erro
+          [mostrarErro]="verificaValidTouched('endereco.cidade')"
+          msgErro="Estado é obrigatório.">
+        </app-campo-control-erro>
+
+      </div>
+
+      <div class="col-3">
+        <label for="estado">Estado</label>
+        <select class="form-control" id="estado"
+                [ngClass]="aplicaCssDeErro('endereco.estado')"
+                formControlName="estado">
+
+          <option *ngFor="let estado of estados" [value]="estado.sigla">
+            {{ estado.nome }}
+          </option>
+
+        </select>
+
+        <app-campo-control-erro
+          [mostrarErro]="verificaValidTouched('endereco.estado')"
+          msgErro="Estado é obrigatório.">
+        </app-campo-control-erro>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-group form-row">
+    <div class="col-4">
+      <label for="cargo">Cargo</label>
+      <select class="form-control" id="cargo"
+              [ngClass]="aplicaCssDeErro('cargo')"
+              formControlName="cargo" [compareWith]="compararCargos">
+
+        <option *ngFor="let cargo of cargos" [ngValue]="cargo">
+          {{ cargo.desc }}
+        </option>
+
+      </select>
+    </div>
+
+    <div class="col-4">
+      <label for="tecnologia">Tecnologia</label>
+      <select multiple class="form-control" id="tecnologia"
+              [ngClass]="aplicaCssDeErro('tecnologias')"
+              formControlName="tecnologias">
+
+        <option *ngFor="let tecnologia of tecnologias" [value]="tecnologia.nome">
+          {{ tecnologia.desc }}
+        </option>
+
+      </select>
+    </div>
+
+    <div class="col-4">
+      <label for="newsLetter">NewsLetter</label>
+
+      <div id="newsLetter">
+        <div class="col-sm-2 form-check form-check-inline" *ngFor="let item of newsLetterOp">
+          <input class="form-check-input" type="radio" name="newsLetter" id="newsLetterOp" [value]="item.valor"
+                 formControlName="newsLetter">
+          <label class="form-check-label" for="newsLetterOp">{{ item.desc }}</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="form-group form-row">
+    <div class="col-3">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formControlName="termos"
+               value="" id="termos" [ngClass]="aplicaCssDeErro('termos')">
+        <label class="form-check-label" for="termos">
+          Aceito os termos.
+        </label>
+      </div>
+
+      <app-campo-control-erro
+        [mostrarErro]="verificaValidTouched('termos')"
+        msgErro="Por favor aceite os termos.">
+      </app-campo-control-erro>
+
+    </div>
+
+
+    <div class="form-group form-row col-6">
+      <div class="col-6">
+        <label for="frameworks">Frameworks</label>
+
+        <div id="frameworks" class="form-row">
+          <div class="form-check col-4"
+               formArrayName="frameworks"
+               *ngFor="let item of getFrameworksControls(); let i = index">
+
+            <input class="form-check-input" type="checkbox"
+                   [formControlName]="i"
+                   value="" id="frameworksCk" [ngClass]="aplicaCssDeErro('frameworks')">
+            <label class="form-check-label" for="frameworksCk">
+              {{ frameworks[i] }}
+            </label>
+          </div>
+        </div>
+        <app-campo-control-erro
+          [mostrarErro]="verificaValidTouched('frameworks')"
+          msgErro="Selecione 1 opção.">
+        </app-campo-control-erro>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <button class="btn btn-default" (click)="resetar()">Cancelar</button>
+  <button class="btn btn-info" (click)="setarCargo()">Cargo</button>
+  <button class="btn btn-info" (click)="setarTecnologias()">Tecnologia</button>
+
+  <app-form-debug [form]="formulario"></app-form-debug>
+
+
+</form>

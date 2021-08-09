@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "curso-angular-pma"
+  },
+  "targets": {
+    "curso-angular-pma": {
+      "hosting": {
+        "request-http": [
+          "curso-angular-pma"
+        ]
+      }
+    }
+  }
+}

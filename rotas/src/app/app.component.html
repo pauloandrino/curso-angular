@@ -1,0 +1,20 @@
+
+<mat-toolbar color="primary" *ngIf="mostrarMenu">
+  <section>
+    <div class="example-button-row" >
+      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true}" mat-flat-button color="primary">Home</a>
+      <a routerLink="/login" routerLinkActive="active" mat-flat-button color="primary">Login</a>
+      <a routerLink="/cursos" [queryParams]="{pagina:1}" routerLinkActive="active" mat-flat-button color="primary">Cursos</a>
+<!--      <a [routerLink]="['curso', idCurso.value]" routerLinkActive="active" mat-flat-button color="primary">Curso Com Id</a>-->
+      <a routerLink="/alunos" routerLinkActive="active" mat-flat-button color="primary">Alunos</a>
+    </div>
+  </section>
+</mat-toolbar>
+
+
+
+<mat-card>
+  <router-outlet></router-outlet>
+</mat-card>
+
+

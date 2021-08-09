@@ -1,0 +1,38 @@
+<p fundoAmarelo>Texto com fundo amarelo</p>
+
+<button fundoAmarelo>OK</button>
+
+
+<p highlithMouse>
+  Texto com highlith quando passo o mouse.
+</p>
+
+
+<p [highlight]="'red'" [defaultColor]="'grey'">
+  Texto com highlith com cores customizadas.
+</p>
+
+
+
+<div *ngIf="mostrarCurso">
+  Lista de Cursos aqui.
+</div>
+
+<div *ngElse="mostrarCurso">
+  Não existem cursos.
+</div>
+
+<br/>
+
+<button (click)="onMostrarCursos()">
+  Mostrar ou esconder cursos
+</button>
+
+<br/>
+
+<!--
+
+<template [ngElse]="mostrarCurso">
+  <div>  Não existem cursos.</div>
+</template>
+-->
